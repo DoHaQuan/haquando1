@@ -1,5 +1,7 @@
 package htw.berlin.prog2.ha1;
 
+import com.google.common.annotations.VisibleForTesting;
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -45,9 +47,14 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if (screen.equals("0")) {
+            latestOperation = "";
+            latestValue = 0.0;
+        }else{
+            screen = "0";
+
+        }
+
     }
 
     /**
@@ -78,11 +85,15 @@ public class Calculator {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
             case "1/x" -> 1 / Double.parseDouble(screen);
+            // Bugfix2
+            case "x²" -> Math.pow(Double.parseDouble(screen), 2);
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        // Bugfix1
+        if (screen.equals("Infinity")) screen = "Error";
 
     }
 
@@ -124,10 +135,13 @@ public class Calculator {
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-    }
+
+            };
+            screen = Double.toString(result);
+            if (screen.equals("Infinity")) screen = "Error";
+            if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+            if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        }
+
+
 }
