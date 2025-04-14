@@ -158,7 +158,21 @@ class CalculatorTest {
 
 
 
-    
+    // Roter Test
+    @Test
+    @DisplayName("should show the squared result after pressing the squared number? ")
+    void TestSquaredResult() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("x²");
+
+        String expected = "400.0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+
+    }
 }
 
 
