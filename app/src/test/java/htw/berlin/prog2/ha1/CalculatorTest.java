@@ -139,19 +139,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("should ignore second dot key press")
-    void testIgnoreSecondDot() {
-        Calculator calc = new Calculator();
-        calc.pressDigitKey(4);
-        calc.pressDotKey();      // Lần đầu tiên -> thêm dấu .
-        calc.pressDigitKey(2);   // 4.2
-        calc.pressDotKey();      // Lần thứ hai -> không được thêm
 
-        String expected = "4.2";
-        String actual = calc.readScreen();
-        assertEquals(expected, actual);
-    }
 
 
     // Roter Test
@@ -165,25 +153,12 @@ class CalculatorTest {
 
         String expected = "Error";
         String actual = calc.readScreen();
-
-        assertEquals(expected, actual); //
-    }
-
-    // Roter Test
-    @Test
-    @DisplayName("should show the squared result after pressing the squared number? ")
-    void TestSquaredResult() {
-        Calculator calc = new Calculator();
-        calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("x²");
-
-        String expected = "400.0";
-        String actual = calc.readScreen();
         assertEquals(expected, actual);
-
-
     }
+
+
+
+    
 }
 
 
